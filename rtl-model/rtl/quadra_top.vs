@@ -9,10 +9,38 @@ module quadra_top
     output y_t  y,
     output dv_t y_dv
 );
-    // Pipeline data valid (3 stages):
-    dv_t dv_p0, dv_p1, dv_p2;
 
-    always_ff @(posedge clk)
+
+/* Local Signals */
+
+x1_t  x_m;
+x2_t  x_l;
+
+dv_t  dv_p0, dv_p1, dv_p2;
+
+
+/* Signal assigments */
+
+assign x_m = x[23:17];
+assign x_l = x[16:0];
+
+
+/* Module Instances */
+
+quadra u_quadra (
+    .clk,
+    .rst_b,
+    .x_m,
+    .x_l,
+    .x_dv,
+    .dv_p0,
+    .y
+);
+
+
+/* Internal logic */
+
+always_ff @(posedge clk) begin
     if (!rst_b) begin
         dv_p0 <= '0;
         dv_p1 <= '0;
@@ -23,11 +51,9 @@ module quadra_top
         dv_p1 <= dv_p0;
         dv_p2 <= dv_p1;
     end
+end
 
-    // <challenge!>
-
-    // Outputs:
-    always_comb y_dv = dv_p2;
-    always_comb y    = '0;
+// Outputs:
+always_comb y_dv = dv_p2;
 
 endmodule

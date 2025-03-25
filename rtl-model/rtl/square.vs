@@ -8,4 +8,4 @@ module square
     // Compute x2^2:
     always_comb sq = x2 * x2;
 
-endmodule    
+endmodule

@@ -12,7 +12,7 @@
 
 `define T_CLK 1000 // clock period [ps]
 
-module quadra_tb 
+module quadra_tb
 (
 );
     //----------------------------------------------------------------------------
@@ -20,13 +20,13 @@ module quadra_tb
     //----------------------------------------------------------------------------
     x_t  x;
     dv_t x_dv;
-    
+
     // --------------------------------------------------------------------------------
     // Outputs:
     // --------------------------------------------------------------------------------
     y_t  y;
     dv_t y_dv;
-    
+
     // --------------------------------------------------------------------------------
     // Internal clock and reset (VCS)
     // --------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ module quadra_tb
         .y     (y),
         .y_dv  (y_dv)
     );
-    
+
     // --------------------------------------------------------------------------------
 
     initial
@@ -63,37 +63,33 @@ module quadra_tb
         repeat(1) @(posedge clk);
         rst_b = 1'b1;
     end
-    
+
     initial
     begin
-
         $display ("Started quadra_tb ...");
 
         x    = '0;
         x_dv = 1'b0;
 
         // flush pipeline:
-        repeat (10) @(posedge clk); 
+        repeat (10) @(posedge clk);
 
-        x    = 24'h7fffff;
+        // generate x in the interval [0,2):
         x_dv = 1'b1;
-
-        $display("x = 0x%08h", x);
-
-        repeat (1) @(posedge clk); 
+        for (int i = 0; i < 200; i++) begin
+            x = (i * 24'hffffff) / 199;
+            $display("Sample %0d: x = 0x%06h", i, x);
+            @(posedge clk);
+        end
 
         x    = '0;
         x_dv = 1'b0;
 
-        repeat (2) @(posedge clk); 
+        repeat (10) @(posedge clk);
 
-        $display("y = 0x%011h", y);
-        
-        repeat (10) @(posedge clk); 
-        
         $display("Simulation finished.");
 
         $finish;
     end
-  
+
 endmodule
