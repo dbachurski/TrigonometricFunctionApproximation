@@ -54,8 +54,8 @@ assign sx_l = x_l;
 
 always_ff @(posedge clk) begin
     if (!rst_b) begin
-        mult1 <= 25'sb0;
-        mult2 <= 42'sb0;
+        mult1 <= 36'sb0;
+        mult2 <= 49'sb0;
     end
     else begin
         mult1 <= mult1_nxt;
@@ -64,8 +64,8 @@ always_ff @(posedge clk) begin
 end
 
 always_comb begin
-    mult1_nxt = 25'sb0;
-    mult2_nxt = 42'sb0;
+    mult1_nxt = 36'sb0;
+    mult2_nxt = 49'sb0;
 
     if (x_dv) begin
         mult1_nxt = sx_l * b;
@@ -77,8 +77,8 @@ end
 
 always_ff @(posedge clk) begin
     if (!rst_b) begin
-        sum <= 54'sb0;
-        a <= 8'sb0;
+        sum <= 57'sb0;
+        a <= 23'sb0;
     end
     else begin
         sum <= sum_nxt;
@@ -87,12 +87,12 @@ always_ff @(posedge clk) begin
 end
 
 always_comb begin
-    sum_nxt = 54'sb0;
+    sum_nxt = 57'sb0;
 
     if (dv_p0) begin
-        sum_nxt = {{5{mult1[25]}}, mult1, {23{1'sb0}}}
-        + {{10{mult2[43]}}, mult2}
-        + {{1{a[7]}}, a, {45{1'sb0}}};
+        sum_nxt = {{5{mult1[35]}}, mult1, {18{1'sb0}}}
+        + {{10{mult2[48]}}, mult2}
+        + {{1{a[22]}}, a, {35{1'sb0}}};
     end
 end
 
@@ -103,7 +103,7 @@ always_ff @(posedge clk) begin
         y <= 25'sb0;
     end
     else begin
-        y <= sum[53:29];
+        y <= sum[58:34];
     end
 end
 

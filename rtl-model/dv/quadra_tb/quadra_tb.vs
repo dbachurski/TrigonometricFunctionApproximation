@@ -66,6 +66,8 @@ module quadra_tb
 
     initial
     begin
+        logic [63:0] temp;
+
         $display ("Started quadra_tb ...");
 
         x    = '0;
@@ -75,9 +77,11 @@ module quadra_tb
         repeat (10) @(posedge clk);
 
         // generate x in the interval [0,2):
+
         x_dv = 1'b1;
-        for (int i = 0; i < 200; i++) begin
-            x = (i * 24'hffffff) / 199;
+        for (int i = 0; i < 1000; i++) begin
+            temp = i * 64'hffffff;
+            x = temp / 999;
             $display("Sample %0d: x = 0x%06h", i, x);
             @(posedge clk);
         end

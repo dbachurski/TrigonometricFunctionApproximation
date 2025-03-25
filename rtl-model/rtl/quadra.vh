@@ -42,35 +42,35 @@ typedef logic signed [17:0] sx2_t;
 typedef logic signed [33:0] sq_t;
 
 // x2 * b
-// s(-5).23 * s2.6 -> s(-3).29
-typedef logic signed [25:0] mult1_t;
+// s(-5).23 * s2.16 -> s(-3).39
+typedef logic signed [35:0] mult1_t;
 
 // sq * c
-// s(-10).46 * s2.6 -> s(-8).52
-typedef logic signed [43:0] mult2_t;
+// s(-10).46 * s2.11 -> s(-8).57
+typedef logic signed [48:0] mult2_t;
 
 // mult1 + mult2 + a
-// s1.52 + 1 extension bit -> s2.52
-typedef logic signed [53:0] sum_t;
+// s1.57 + 1 extension bit -> s2.57
+typedef logic signed [58:0] sum_t;
 
-// a in (-1,1) -> s1.7
-localparam int  A_I =  1;          //         =  1
-localparam int  A_F =  7;          //         =  7
-localparam int  A_W = A_I + A_F;   //  1 + 7 = 8 (s1.7)
+// a in (-1,1) -> s1.22
+localparam int  A_I = 1;           //         = 1
+localparam int  A_F = 22;          //         = 22
+localparam int  A_W = A_I + A_F;   //  1 + 22 = 8 (s1.22)
 
 typedef logic signed [A_W-1:0] a_t;
 
-// b in (-2,2) -> s2.6
-localparam int  B_I =  2;          //         =  2
-localparam int  B_F =  6;          //         =  6
-localparam int  B_W = B_I + B_F;   //  2 + 6 = 8 (s2.6)
+// b in (-2,2) -> s2.16
+localparam int  B_I = 2;           //         = 2
+localparam int  B_F = 16;          //         = 16
+localparam int  B_W = A_I + A_F;   //  2 + 16 = 8 (s2.16)
 
 typedef logic signed [B_W-1:0] b_t;
 
-// c in (-2,2) -> s2.6
-localparam int  C_I =  2;          //         =  2
-localparam int  C_F =  6;          //         =  6
-localparam int  C_W = C_I + C_F;   //  2 + 6 = 8 (s2.6)
+// c in (-2,2) -> s2.11
+localparam int  C_I = 2;           //         = 2
+localparam int  C_F = 11;          //         = 11
+localparam int  C_W = C_I + C_F;   //  2 + 11 = 8 (s2.11)
 
 typedef logic signed [C_W-1:0] c_t;
 
